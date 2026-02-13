@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一年級數學：立體圖形繪製教學</title>
+    <style>
+        :root {
+            --primary-blue: #2a6fb4;
+            --bg-color: #f8f9fa;
+            --card-border: #d1d9e6;
+        }
+        body {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        h1 { color: var(--primary-blue); border-bottom: 3px solid var(--primary-blue); padding-bottom: 10px; }
+        .course-note {
+            background: white;
+            border: 1px solid var(--card-border);
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--card-border);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        h2 { margin-top: 0; color: #333; font-size: 1.5em; }
+        .canvas-area {
+            background: #ffffff;
+            border: 1px solid #eee;
+            height: 220px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        svg { width: 100%; height: 100%; }
+        line, path, circle, ellipse {
+            fill: none;
+            stroke: #000;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: opacity 0.4s;
+        }
+        .step-msg {
+            min-height: 60px;
+            font-size: 1em;
+            color: #444;
+            padding: 0 10px;
+            font-weight: bold;
+        }
+        .btn-group { margin-top: auto; display: flex; justify-content: center; gap: 10px; }
+        button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+        button.reset { background: #6c757d; }
+        .hidden { opacity: 0; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>一年級數學：立體圖形繪製教學</h1>
+    <div class="course-note">
+        我們學習繪製角柱、角錐、圓柱、圓錐與球。
+    </div>
+</div>
+
+<div class="grid">
+    <div class="card" id="prism1">
+        <h2>角柱</h2>
+        <div class="step-msg" id="m-prism1">點擊下方按鈕開始繪製。</div>
+        <div class="canvas-area">
+            <svg>
+                <path d="M100,70 L160,40 L220,70 Z" class="step hidden"/> 
+                <line x1="100" y1="70" x2="100" y2="160" class="step hidden"/> 
+                <line x1="220" y1="70" x2="220" y2="160" class="step hidden"/> 
+                <line x1="160" y1="40" x2="160" y2="130" class="step hidden"/> 
+                <line x1="100" y1="160" x2="220" y2="160" class="step hidden"/> 
+                <path d="M100,160 L160,130 L220,160" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('prism1')">繪製下一條直線</button>
+            <button class="reset" onclick="clr('prism1')">重畫</button>
+        </div>
+    </div>
+
+    <div class="card" id="prism2">
+        <h2>角柱</h2>
+        <div class="step-msg" id="m-prism2">觀察四角底面的角柱畫法。</div>
+        <div class="canvas-area">
+            <svg>
+                <path d="M90,50 L180,50 L220,90 L130,90 Z" class="step hidden"/> 
+                <line x1="90" y1="50" x2="90" y2="130" class="step hidden"/> 
+                <line x1="180" y1="50" x2="180" y2="130" class="step hidden"/> 
+                <line x1="220" y1="90" x2="220" y2="170" class="step hidden"/> 
+                <line x1="130" y1="90" x2="130" y2="170" class="step hidden"/> 
+                <path d="M90,130 L180,130 L220,170 L130,170 Z" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('prism2')">繪製下一條直線</button>
+            <button class="reset" onclick="clr('prism2')">重畫</button>
+        </div>
+    </div>
+
+    <div class="card" id="pyra1">
+        <h2>角錐</h2>
+        <div class="step-msg" id="m-pyra1">學習頂點與三角形底面的連接。</div>
+        <div class="canvas-area">
+            <svg>
+                <path d="M100,160 L220,160 L160,130 Z" class="step hidden"/> 
+                <line x1="160" y1="40" x2="100" y2="160" class="step hidden"/> 
+                <line x1="160" y1="40" x2="220" y2="160" class="step hidden"/> 
+                <line x1="160" y1="40" x2="160" y2="130" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('pyra1')">繪製下一條直線</button>
+            <button class="reset" onclick="clr('pyra1')">重畫</button>
+        </div>
+    </div>
+
+    <div class="card" id="pyra2">
+        <h2>角錐</h2>
+        <div class="step-msg" id="m-pyra2">學習頂點與四角形底面的連接。</div>
+        <div class="canvas-area">
+            <svg>
+                <path d="M90,150 L180,150 L220,120 L130,120 Z" class="step hidden"/> 
+                <line x1="155" y1="40" x2="90" y2="150" class="step hidden"/> 
+                <line x1="155" y1="40" x2="180" y2="150" class="step hidden"/> 
+                <line x1="155" y1="40" x2="220" y2="120" class="step hidden"/> 
+                <line x1="155" y1="40" x2="130" y2="120" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('pyra2')">繪製下一條直線</button>
+            <button class="reset" onclick="clr('pyra2')">重畫</button>
+        </div>
+    </div>
+
+    <div class="card" id="cyl">
+        <h2>圓柱</h2>
+        <div class="step-msg" id="m-cyl">觀察圓形底面與曲面的表現方式。</div>
+        <div class="canvas-area">
+            <svg>
+                <ellipse cx="160" cy="60" rx="70" ry="25" class="step hidden"/> 
+                <line x1="90" y1="60" x2="90" y2="160" class="step hidden"/> 
+                <line x1="230" y1="60" x2="230" y2="160" class="step hidden"/> 
+                <ellipse cx="160" cy="160" rx="70" ry="25" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('cyl')">繪製下一部分</button>
+            <button class="reset" onclick="clr('cyl')">重畫</button>
+        </div>
+    </div>
+
+    <div class="card" id="cone">
+        <h2>圓錐</h2>
+        <div class="step-msg" id="m-cone">由頂點向圓形底面繪製。</div>
+        <div class="canvas-area">
+            <svg>
+                <ellipse cx="160" cy="160" rx="70" ry="25" class="step hidden"/> 
+                <line x1="160" y1="40" x2="90" y2="160" class="step hidden"/> 
+                <line x1="160" y1="40" x2="230" y2="160" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('cone')">繪製下一部分</button>
+            <button class="reset" onclick="clr('cone')">重畫</button>
+        </div>
+    </div>
+
+    <div class="card" id="sphere">
+        <h2>球</h2>
+        <div class="step-msg" id="m-sphere">圓潤的球體，不包含垂直中心線。</div>
+        <div class="canvas-area">
+            <svg>
+                <circle cx="160" cy="110" r="80" class="step hidden"/> 
+                <path d="M80,110 A80,30 0 0,0 240,110" class="step hidden"/> 
+                <path d="M80,110 A80,30 0 0,1 240,110" class="step hidden"/> 
+            </svg>
+        </div>
+        <div class="btn-group">
+            <button onclick="draw('sphere')">繪製下一部分</button>
+            <button class="reset" onclick="clr('sphere')">重畫</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const stepsInfo = {
+        'prism1': ["繪製三角形頂面", "由頂面點向下方繪製直線", "再繪製一條向下的直線", "繪製最後一條直線", "連接底部邊緣形成底面", "完成所有稜線繪製。"],
+        'prism2': ["繪製四角形頂面", "由頂點向下繪製第一條直線", "繪製第二條直線", "繪製第三條直線", "繪製第四條直線", "連接底部四點完成底面。"],
+        'pyra1': ["繪製三角形底面", "由頂點向底面繪製第一條連接直線", "繪製第二條連接直線", "繪製第三條連接直線。"],
+        'pyra2': ["繪製四角形底面", "由頂點向底面繪製第一條連接直線", "繪製第二條連接直線", "繪製第三條連接直線", "繪製第四條連接直線。"],
+        'cyl': ["繪製橢圓形頂面", "在左側繪製直線", "在右側繪製直線", "繪製橢圓形底面。"],
+        'cone': ["繪製橢圓形底面", "由頂點向底面左緣繪製直線", "由頂點向底面右緣繪製直線。"],
+        'sphere': ["繪製圓形輪廓", "繪製球體中段橫向弧線（前半部分）", "繪製球體中段橫向弧線（後半部分）。"]
+    };
+
+    let counts = { prism1:0, prism2:0, pyra1:0, pyra2:0, cyl:0, cone:0, sphere:0 };
+
+    function draw(id) {
+        const steps = document.querySelectorAll(`#${id} .step`);
+        const msg = document.getElementById(`m-${id}`);
+        if (counts[id] < steps.length) {
+            steps[counts[id]].classList.remove('hidden');
+            msg.innerText = stepsInfo[id][counts[id]];
+            counts[id]++;
+        } else {
+            msg.innerText = "本立體圖形繪製完成。";
+        }
+    }
+
+    function clr(id) {
+        const steps = document.querySelectorAll(`#${id} .step`);
+        steps.forEach(s => s.classList.add('hidden'));
+        counts[id] = 0;
+        document.getElementById(`m-${id}`).innerText = "請重新開始繪製。";
+    }
+</script>
+
+</body>
+</html>
